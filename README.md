@@ -4,7 +4,7 @@
 - Validación de usuarios.
 - Encriptación de contraseñas.
 - Carga y descarga de imagenes.
-- Cambio de descripión de usuario.
+- Cambio de descripción de usuario.
 - Añadir amigos.
 - Modo Claro y Modo Oscuro.
 
