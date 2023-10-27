@@ -489,6 +489,23 @@ header .menu ul li a:hover{
     color: #fff;
 }
 
+.btnBorrarAmigo{
+    cursor: pointer;
+}
+
+.parrafoSinAmigos{
+    font-size: 20px;
+    margin: 3rem;
+    letter-spacing: 1.8px;
+}
+
+.dark .parrafoSinAmigos{
+    font-size: 20px;
+    margin: 3rem;
+    letter-spacing: 1.8px;
+    color: rgba(255, 255, 255, 0.737);
+}
+
 #formularioInicio{
     background-color: #2d2f38;
     color: #FFF;

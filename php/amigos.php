@@ -11,6 +11,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" type="text/css" href="../css/estilo.css">
     <script src="https://kit.fontawesome.com/2c36e9b7b1.js" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <title>Mis amigos</title>
 </head>
 <body>
@@ -41,26 +42,30 @@
     <video src="../video/claro_web.mp4" autoplay="true" muted="true" loop="true" id="video"></video>
 
     <section id="recuadros">
-        <h2 class="tituloBuscar"> Mis amigos </h2>
+        <h2 class="tituloBuscar">Mis amigos</h2>
 
         <?php
-        $queryAmigos = "SELECT * FROM persona p WHERE p.Nickname in 
-        (SELECT a.Nickname2 FROM amistad a WHERE a.Nickname1 ='$nickname')";
+            $queryAmigos = "SELECT * FROM persona p WHERE p.Nickname in 
+            (SELECT a.Nickname2 FROM amistad a WHERE a.Nickname1 = '$nickname')";
 
-        $prepareQueryAmigos = mysqli_query($conexion, $queryAmigos);
+            $prepareQueryAmigos = mysqli_query($conexion, $queryAmigos);
 
-        while($fila=mysqli_fetch_array($prepareQueryAmigos)){
-
-        ?>
-            <section class="recuadro">
-            <a href="<?php echo "../php/perfil.php?nickname=".$fila['Nickname'] ?>">
-                <img src="<?php echo $fila['FotoPerfil'] ?>" alt="Imagen" height="150" class="perfilAmigos">
-            </a>
-                <h2><?php echo $fila['Nombre'] ." ". $fila['Apellido'] ?></h2>
-                <a href="<?php echo "../php/perfil.php?nickname=".$fila['Nickname'] ?>" class="boton">Ver perfil</a><br><br>
-            </section>
+            if (mysqli_num_rows($prepareQueryAmigos) == 0) {
+                echo '<p class="parrafoSinAmigos">Aún no tienes amigos</p>';
+            } else {
+                while ($fila = mysqli_fetch_array($prepareQueryAmigos)) {
+                    ?>
+                    <section class="recuadro">
+                        <a href="<?php echo "../php/perfil.php?nickname=" . $fila['Nickname'] ?>">
+                            <img src="<?php echo $fila['FotoPerfil'] ?>" alt="Imagen" height="150" class="perfilAmigos">
+                        </a>
+                        <h2><?php echo $fila['Nombre'] . " " . $fila['Apellido'] ?></h2>
+                        <a href="<?php echo "../php/perfil.php?nickname=" . $fila['Nickname'] ?>" class="boton">Ver perfil</a>
+                        <a data-nickname="<?php echo $fila['Nickname'] ?>" data-amigo="<?php echo $fila['Nombre'] ." ".  $fila['Apellido'] ?>" class="boton btnBorrarAmigo">Borrar Amigo</a><br><br>
+                    </section>
         <?php
-            }         
+                }
+            }
         ?>
     </section><br><br>
 
@@ -69,6 +74,7 @@
     </footer>
 
     <script src="../js/main.js"></script>
-    
+    <script src="../js/deleteFriend.js"></script>
+
 </body>
 </html>
